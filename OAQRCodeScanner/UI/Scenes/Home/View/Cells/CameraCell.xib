@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8CL-Zg-y54">
-                        <rect key="frame" x="16" y="8" width="288" height="262"/>
+                        <rect key="frame" x="16" y="55" width="288" height="215"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n40-bu-0u3">
@@ -26,23 +26,33 @@
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" title="Open Camera"/>
                         <connections>
-                            <action selector="openCameraTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iBx-wB-thH"/>
+                            <action selector="openCameraTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PQn-YP-8Ff"/>
                         </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4S-h3-rua">
+                        <rect key="frame" x="16" y="18" width="288" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="g4S-h3-rua" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="6cj-do-f5I"/>
                     <constraint firstAttribute="trailing" secondItem="8CL-Zg-y54" secondAttribute="trailing" constant="16" id="Cso-Mt-S7F"/>
-                    <constraint firstItem="8CL-Zg-y54" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="MKj-lE-Pn0"/>
                     <constraint firstItem="n40-bu-0u3" firstAttribute="centerX" secondItem="8CL-Zg-y54" secondAttribute="centerX" id="TXn-nz-yss"/>
+                    <constraint firstItem="8CL-Zg-y54" firstAttribute="top" secondItem="g4S-h3-rua" secondAttribute="bottom" constant="16" id="XQS-Y2-bE4"/>
+                    <constraint firstItem="g4S-h3-rua" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="b5g-Ef-RER"/>
                     <constraint firstAttribute="bottom" secondItem="n40-bu-0u3" secondAttribute="bottom" constant="11" id="gCq-Yu-Stu"/>
                     <constraint firstItem="8CL-Zg-y54" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="h1y-Hh-Ynf"/>
                     <constraint firstItem="n40-bu-0u3" firstAttribute="top" secondItem="8CL-Zg-y54" secondAttribute="bottom" constant="8" symbolic="YES" id="jwr-Uo-dK9"/>
+                    <constraint firstAttribute="trailing" secondItem="g4S-h3-rua" secondAttribute="trailing" constant="16" id="oaz-wi-4YZ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="cameraView" destination="8CL-Zg-y54" id="wfg-yZ-1Vo"/>
-                <outlet property="openCameraButton" destination="H2p-sc-9uM" id="J3L-ht-NeO"/>
+                <outlet property="openCameraButton" destination="n40-bu-0u3" id="Lrf-cG-BaI"/>
+                <outlet property="qrCodeOutputLabel" destination="g4S-h3-rua" id="QE2-WV-AUT"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="232.36607142857142"/>
         </tableViewCell>

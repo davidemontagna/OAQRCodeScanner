@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 
 class HomeViewController: UIViewController {
-
+    
     // MARK: - Outlets
     
     @IBOutlet weak var tableView: UITableView!
@@ -22,6 +22,10 @@ class HomeViewController: UIViewController {
     
     lazy var viewModel = HomeViewModel()
     
+    // MARK: - Properties
+    
+    let captureSession = AVCaptureSession()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -31,22 +35,47 @@ class HomeViewController: UIViewController {
         tableView.delegate = adapter
         tableView.dataSource = adapter
     }
+    
+    // MARK: - Public methods
+    
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        self.captureSession.stopRunning()
+        viewModel.getUrlfromMetadata(metadataObjects: metadataObjects)
+        UIApplication.shared.open(viewModel.QRCodeUrl)
+    }
 }
 
 // MARK: - Extensions
 
-extension HomeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-}
-
 extension HomeViewController: HomeAdapterDelegate {
     func didOpenCameraTapped() {
-        print("Open camera tapped")
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let imagePickerController = UIImagePickerController()
-            imagePickerController.delegate = self;
-            imagePickerController.sourceType = .camera
-            self.present(imagePickerController, animated: true, completion: nil)
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
+        guard let captureDevice = deviceDiscoverySession.devices.first else {
+            print("Failed to open the camera device")
+            return
+        }
+        do {
+            let input = try AVCaptureDeviceInput(device: captureDevice)
+            self.captureSession.addInput(input)
+            var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+            
+            let captureMetadataOutput = AVCaptureMetadataOutput()
+            self.captureSession.addOutput(captureMetadataOutput)
+            
+            captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+            captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
+            
+            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
+            videoPreviewLayer?.frame = view.layer.bounds
+            view.layer.addSublayer(videoPreviewLayer!)
+            self.captureSession.startRunning()
+        } catch {
+            print(error)
+            return
         }
     }
+}
+
+extension HomeViewController: AVCaptureMetadataOutputObjectsDelegate {
+    
 }

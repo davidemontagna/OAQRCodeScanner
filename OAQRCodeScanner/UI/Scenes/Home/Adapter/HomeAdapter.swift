@@ -18,6 +18,10 @@ class HomeAdapter: NSObject {
     
     var delegate: HomeAdapterDelegate?
     
+    // MARK: - Properties
+    
+    var uiitems: [QRCodeUIItem] = []
+    
     // MARK: - Adapter Lifecycle
     
     init(delegate: HomeAdapterDelegate) {
@@ -36,11 +40,10 @@ extension HomeAdapter: UITableViewDataSource {
         let cell: CameraCell = tableView.dequeueReusableCell(for: CameraCell.self, for: indexPath)
         cell.config(with: self)
         return cell
-    }  
+    }
 }
 
 extension HomeAdapter: UITableViewDelegate {
-    
 }
 
 extension HomeAdapter: CameraCellDelegate {

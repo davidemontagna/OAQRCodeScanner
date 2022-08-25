@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import AVFoundation
 
 protocol CameraCellDelegate {
     func didOpenCameraTapped()
@@ -20,6 +19,7 @@ class CameraCell: UITableViewCell {
 
     // MARK: - Outlets
 
+    @IBOutlet weak var qrCodeOutputLabel: UILabel!
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var openCameraButton: UIView!
     
@@ -38,7 +38,7 @@ class CameraCell: UITableViewCell {
     // MARK: - Public methods
     
     func config(with delegate: CameraCellDelegate) {
-        self.delegate = delegate
+        self.delegate = delegate        
     }
 }
 
