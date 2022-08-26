@@ -20,28 +20,52 @@ class HomeViewController: UIViewController {
     
     // MARK: - ViewModel
     
-    lazy var viewModel = HomeViewModel()
+    lazy var viewModel = HomeViewModel(delegate: self)
     
     // MARK: - Properties
     
-    let captureSession = AVCaptureSession()
+    var captureSession = AVCaptureSession()
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(cell: CameraCell.self)
+        tableView.register(cell: ButtonsCell.self)
+        tableView.register(cell: ScanResultCell.self)
         //Setup TableView
         tableView.delegate = adapter
         tableView.dataSource = adapter
+        adapter.uiitems = viewModel.uiitems
     }
     
     // MARK: - Public methods
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         self.captureSession.stopRunning()
+        videoPreviewLayer.removeFromSuperlayer()
         viewModel.getUrlfromMetadata(metadataObjects: metadataObjects)
-        UIApplication.shared.open(viewModel.QRCodeUrl)
+        UIDevice.vibrate()
+        dismiss(animated: true)
+        viewModel.showScanResult()
+    }
+    
+    // MARK: - Private methods
+    
+    private func checkCaptureSessionInput() {
+        if let inputs = captureSession.inputs as? [AVCaptureDeviceInput] {
+            for input in inputs {
+                captureSession.removeInput(input)
+            }
+        }
+    }
+    
+    private func checkCaptureSessionOutput() {
+        if let outputs = captureSession.outputs as? [AVCaptureMetadataOutput] {
+            for output in outputs {
+                captureSession.removeOutput(output)
+            }
+        }
     }
 }
 
@@ -51,27 +75,37 @@ extension HomeViewController: HomeAdapterDelegate {
     func didOpenCameraTapped() {
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
         guard let captureDevice = deviceDiscoverySession.devices.first else {
-            print("Failed to open the camera device")
+            print("Failed to open the camera")
             return
         }
         do {
             let input = try AVCaptureDeviceInput(device: captureDevice)
-            self.captureSession.addInput(input)
-            var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+            checkCaptureSessionInput()
+            captureSession.addInput(input)
             
             let captureMetadataOutput = AVCaptureMetadataOutput()
-            self.captureSession.addOutput(captureMetadataOutput)
-            
+            checkCaptureSessionOutput()
+            captureSession.addOutput(captureMetadataOutput)
             captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
             
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
             videoPreviewLayer?.frame = view.layer.bounds
             view.layer.addSublayer(videoPreviewLayer!)
-            self.captureSession.startRunning()
+            captureSession.startRunning()
         } catch {
             print(error)
             return
+        }
+    }
+}
+
+extension HomeViewController: HomeViewModelDelegate {    
+    func onSuccess(by useCase: HomeViewModelUseCases) {
+        switch useCase {
+        case .showResult:
+            adapter.uiitems = viewModel.uiitems
+            tableView.reloadData()
         }
     }
 }

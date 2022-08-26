@@ -7,6 +7,11 @@
 
 import Foundation
 
-struct QRCodeUIItem {
+enum HomeUIItem {
+    case button
+    case content(QRCodeArgs)
+}
+
+struct QRCodeArgs {
     let qrCodeUrl: String
 }

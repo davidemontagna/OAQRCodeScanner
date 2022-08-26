@@ -20,7 +20,7 @@ class HomeAdapter: NSObject {
     
     // MARK: - Properties
     
-    var uiitems: [QRCodeUIItem] = []
+    var uiitems: [HomeUIItem] = []
     
     // MARK: - Adapter Lifecycle
     
@@ -33,20 +33,27 @@ class HomeAdapter: NSObject {
 
 extension HomeAdapter: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return uiitems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: CameraCell = tableView.dequeueReusableCell(for: CameraCell.self, for: indexPath)
-        cell.config(with: self)
-        return cell
+        switch uiitems[indexPath.row] {
+        case .button:
+            let cell: ButtonsCell = tableView.dequeueReusableCell(for: ButtonsCell.self, for: indexPath)
+            cell.config(with: self)
+            return cell
+        case .content(let args):
+            let cell: ScanResultCell = tableView.dequeueReusableCell(for: ScanResultCell.self, for: indexPath)
+            cell.config(with: args)
+            return cell
+        }
     }
 }
 
 extension HomeAdapter: UITableViewDelegate {
 }
 
-extension HomeAdapter: CameraCellDelegate {
+extension HomeAdapter: ButtonsCellDelegate {
     func didOpenCameraTapped() {
         delegate?.didOpenCameraTapped()
     }

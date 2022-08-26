@@ -7,20 +7,18 @@
 
 import UIKit
 
-protocol CameraCellDelegate {
+protocol ButtonsCellDelegate {
     func didOpenCameraTapped()
 }
 
-class CameraCell: UITableViewCell {
+class ButtonsCell: UITableViewCell {
     
     // MARK: - Delegate
     
-    var delegate: CameraCellDelegate?
+    var delegate: ButtonsCellDelegate?
 
     // MARK: - Outlets
 
-    @IBOutlet weak var qrCodeOutputLabel: UILabel!
-    @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var openCameraButton: UIView!
     
     // MARK: - Lifecycle
@@ -37,7 +35,7 @@ class CameraCell: UITableViewCell {
     
     // MARK: - Public methods
     
-    func config(with delegate: CameraCellDelegate) {
+    func config(with delegate: ButtonsCellDelegate) {
         self.delegate = delegate        
     }
 }
