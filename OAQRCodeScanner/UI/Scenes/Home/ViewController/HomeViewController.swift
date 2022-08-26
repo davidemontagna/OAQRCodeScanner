@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var errorLabel: UILabel!
     
     // MARK: - Adapter
     
@@ -37,6 +38,7 @@ class HomeViewController: UIViewController {
         tableView.delegate = adapter
         tableView.dataSource = adapter
         adapter.uiitems = viewModel.uiitems
+        errorLabel.isHidden = true
     }
     
     // MARK: - Public methods
@@ -75,7 +77,8 @@ extension HomeViewController: HomeAdapterDelegate {
     func didOpenCameraTapped() {
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
         guard let captureDevice = deviceDiscoverySession.devices.first else {
-            print("Failed to open the camera")
+            errorLabel.text = "Failed to open the camera"
+            errorLabel.isHidden = false
             return
         }
         do {

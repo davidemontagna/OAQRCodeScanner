@@ -24,7 +24,7 @@ class ScanResultCell: UITableViewCell {
     
     func config(with args: QRCodeArgs) {
         print(args.qrCodeUrl)
-        resultLabel.text = args.qrCodeUrl
+        resultLabel.text = "The scanned code contains the link: \(args.qrCodeUrl)"
         resultLabel.isHidden = false
     }
     
