@@ -17,39 +17,56 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n40-bu-0u3">
-                        <rect key="frame" x="103" y="30" width="113" height="31"/>
-                        <color key="backgroundColor" systemColor="systemCyanColor"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" title="Open Camera"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Pv-nV-AOf">
+                        <rect key="frame" x="92" y="21" width="130" height="49"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n40-bu-0u3">
+                                <rect key="frame" x="10" y="9" width="110" height="31"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Open Camera"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="18"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="openCameraTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PQn-YP-8Ff"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="n40-bu-0u3" secondAttribute="bottom" constant="9" id="MgJ-Aq-NwV"/>
+                            <constraint firstItem="n40-bu-0u3" firstAttribute="leading" secondItem="4Pv-nV-AOf" secondAttribute="leading" constant="10" id="ap8-PI-QYT"/>
+                            <constraint firstItem="n40-bu-0u3" firstAttribute="top" secondItem="4Pv-nV-AOf" secondAttribute="top" constant="9" id="m3f-7C-iEM"/>
+                            <constraint firstAttribute="trailing" secondItem="n40-bu-0u3" secondAttribute="trailing" constant="10" id="osc-Lh-w8R"/>
+                        </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="10"/>
+                                <integer key="value" value="25"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="openCameraTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PQn-YP-8Ff"/>
-                        </connections>
-                    </button>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="n40-bu-0u3" secondAttribute="bottom" constant="20" symbolic="YES" id="3Nh-ea-xtt"/>
-                    <constraint firstAttribute="trailing" secondItem="n40-bu-0u3" secondAttribute="trailing" constant="104" id="cei-Nd-Kbg"/>
-                    <constraint firstItem="n40-bu-0u3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="103" id="u0w-h4-K4B"/>
-                    <constraint firstItem="n40-bu-0u3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="xid-1R-OtH"/>
+                    <constraint firstAttribute="bottom" secondItem="4Pv-nV-AOf" secondAttribute="bottom" constant="11" id="8Qg-1q-juP"/>
+                    <constraint firstItem="4Pv-nV-AOf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="92" id="JnY-pp-cwP"/>
+                    <constraint firstItem="4Pv-nV-AOf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="21" id="Leg-V9-HJS"/>
+                    <constraint firstAttribute="trailing" secondItem="4Pv-nV-AOf" secondAttribute="trailing" constant="98" id="Lg6-1e-ahk"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="openCameraButton" destination="n40-bu-0u3" id="Lrf-cG-BaI"/>
+                <outlet property="borderButton" destination="4Pv-nV-AOf" id="oXd-l1-d9H"/>
+                <outlet property="openCameraButton" destination="n40-bu-0u3" id="aiB-Jj-oV4"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="129.57589285714286"/>
         </tableViewCell>
     </objects>
     <resources>
-        <systemColor name="systemCyanColor">
-            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
