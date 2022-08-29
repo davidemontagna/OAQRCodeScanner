@@ -9,4 +9,5 @@ import Foundation
 
 enum HomeViewModelUseCases {
     case showResult
+    case startCamera
 }

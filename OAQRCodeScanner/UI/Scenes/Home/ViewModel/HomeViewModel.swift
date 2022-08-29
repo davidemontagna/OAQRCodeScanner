@@ -40,17 +40,8 @@ class HomeViewModel: NSObject {
     
     // MARK: - Public methods
     
-    func getUrlfromMetadata(metadataObjects: [AVMetadataObject]) {
-        if let metadataObject = metadataObjects.first {
-            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-            guard let stringValue = readableObject.stringValue else { return }
-            guard let url = URL(string: stringValue) else { return }
-            stringURL = stringValue
-            QRCodeUrl = url
-            if let url = QRCodeUrl {
-                UIApplication.shared.open(url)
-            }
-        }
+    func startCamera() {
+        self.delegate?.onSuccess(by: .startCamera)
     }
     
     func showScanResult() {

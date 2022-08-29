@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import AVFoundation
 
 class HomeViewController: UIViewController {
     
@@ -23,11 +22,6 @@ class HomeViewController: UIViewController {
     
     lazy var viewModel = HomeViewModel(delegate: self)
     
-    // MARK: - Properties
-    
-    var captureSession = AVCaptureSession()
-    var videoPreviewLayer: AVCaptureVideoPreviewLayer!
-    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -40,66 +34,13 @@ class HomeViewController: UIViewController {
         adapter.uiitems = viewModel.uiitems
         errorLabel.isHidden = true
     }
-    
-    // MARK: - Public methods
-    
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        self.captureSession.stopRunning()
-        videoPreviewLayer.removeFromSuperlayer()
-        viewModel.getUrlfromMetadata(metadataObjects: metadataObjects)
-        UIDevice.vibrate()
-        dismiss(animated: true)
-        viewModel.showScanResult()
-    }
-    
-    // MARK: - Private methods
-    
-    private func checkCaptureSessionInput() {
-        if let inputs = captureSession.inputs as? [AVCaptureDeviceInput] {
-            for input in inputs {
-                captureSession.removeInput(input)
-            }
-        }
-    }
-    
-    private func checkCaptureSessionOutput() {
-        if let outputs = captureSession.outputs as? [AVCaptureMetadataOutput] {
-            for output in outputs {
-                captureSession.removeOutput(output)
-            }
-        }
-    }
 }
 
 // MARK: - Extensions
 
 extension HomeViewController: HomeAdapterDelegate {
     func didOpenCameraTapped() {
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
-        guard let captureDevice = deviceDiscoverySession.devices.first else {
-            errorLabel.text = "Failed to open the camera"
-            errorLabel.isHidden = false
-            return
-        }
-        do {
-            let input = try AVCaptureDeviceInput(device: captureDevice)
-            checkCaptureSessionInput()
-            captureSession.addInput(input)
-            
-            let captureMetadataOutput = AVCaptureMetadataOutput()
-            checkCaptureSessionOutput()
-            captureSession.addOutput(captureMetadataOutput)
-            captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
-            
-            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
-            videoPreviewLayer?.frame = view.layer.bounds
-            view.layer.addSublayer(videoPreviewLayer!)
-            captureSession.startRunning()
-        } catch {
-            print(error)
-            return
-        }
+        viewModel.startCamera()
     }
 }
 
@@ -109,10 +50,10 @@ extension HomeViewController: HomeViewModelDelegate {
         case .showResult:
             adapter.uiitems = viewModel.uiitems
             tableView.reloadData()
+        case .startCamera:
+            QRScannerManager.shared.view = self.view
+            QRScannerManager.shared.startCameraSession()
         }
     }
 }
 
-extension HomeViewController: AVCaptureMetadataOutputObjectsDelegate {
-    
-}

@@ -27,5 +27,4 @@ class ScanResultCell: UITableViewCell {
         resultLabel.text = "The scanned code contains the url: \(args.qrCodeUrl)"
         resultLabel.isHidden = false
     }
-    
 }
