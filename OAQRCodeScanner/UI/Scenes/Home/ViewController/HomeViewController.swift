@@ -34,6 +34,12 @@ class HomeViewController: UIViewController {
         adapter.uiitems = viewModel.uiitems
         errorLabel.isHidden = true
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? QRScannerViewController {
+            destination.delegate = self
+        }
+    }
 }
 
 // MARK: - Extensions
@@ -51,9 +57,14 @@ extension HomeViewController: HomeViewModelDelegate {
             adapter.uiitems = viewModel.uiitems
             tableView.reloadData()
         case .startCamera:
-            QRScannerManager.shared.view = self.view
-            QRScannerManager.shared.startCameraSession()
+            self.performSegue(withIdentifier: "show_scanner", sender: nil)
         }
+    }
+}
+
+extension HomeViewController: QRScannerViewControllerDelegate {
+    func printQRCodeUrl(url: URL) {
+        viewModel.showScanResult(url: url)
     }
 }
 

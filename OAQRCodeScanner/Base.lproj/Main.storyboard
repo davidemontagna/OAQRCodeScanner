@@ -56,33 +56,43 @@
                     <connections>
                         <outlet property="errorLabel" destination="Qi0-mz-cfF" id="ZaK-QW-rse"/>
                         <outlet property="tableView" destination="EQ5-bv-OYF" id="gIQ-cY-5Dl"/>
+                        <segue destination="xnh-sD-Hey" kind="show" identifier="show_scanner" id="jwq-9L-nPd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="109.82142857142857"/>
         </scene>
-        <!--View Controller-->
+        <!--Scanner View Controller-->
         <scene sceneID="orH-ox-F33">
             <objects>
-                <viewController id="xnh-sD-Hey" sceneMemberID="viewController">
+                <viewController id="xnh-sD-Hey" customClass="QRScannerViewController" customModule="OAQRCodeScanner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Frp-6P-iUR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ekk-aR-atW">
-                                <rect key="frame" x="0.0" y="384" width="336" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ekk-aR-atW" customClass="QRCodeScanner" customModule="OAQRCodeScanner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="91" width="414" height="771"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ehn-C3-JwY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ehn-C3-JwY" firstAttribute="trailing" secondItem="Ekk-aR-atW" secondAttribute="trailing" id="1Pj-lP-fy4"/>
+                            <constraint firstItem="Ekk-aR-atW" firstAttribute="leading" secondItem="ehn-C3-JwY" secondAttribute="leading" id="X7W-Fa-cCE"/>
+                            <constraint firstItem="ehn-C3-JwY" firstAttribute="bottom" secondItem="Ekk-aR-atW" secondAttribute="bottom" id="Xgb-lv-LdD"/>
+                            <constraint firstItem="Ekk-aR-atW" firstAttribute="top" secondItem="ehn-C3-JwY" secondAttribute="top" constant="3" id="YdW-Po-WIN"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="TJ0-uZ-TgZ"/>
+                    <connections>
+                        <outlet property="QRScannerView" destination="Ekk-aR-atW" id="yS5-ID-GVi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iz2-6x-tMt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1079.7101449275362" y="120.53571428571428"/>
+            <point key="canvasLocation" x="1069.5652173913045" y="109.82142857142857"/>
         </scene>
     </scenes>
     <resources>

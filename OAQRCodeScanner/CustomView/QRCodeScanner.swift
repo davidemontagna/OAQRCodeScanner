@@ -1,27 +1,25 @@
 //
-//  QRScannerManager.swift
+//  QRCodeScanner.swift
 //  OAQRCodeScanner
 //
-//  Created by Davide Montagna on 29/08/22.
+//  Created by Davide Montagna on 30/08/22.
 //
 
 import Foundation
-import AVFoundation
 import UIKit
+import AVFoundation
 
-class QRScannerManager: NSObject {
+class QRCodeScanner: UIView {
     
     // MARK: - Properties
     
-    static let shared = QRScannerManager()
     var captureSession = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
-    var view: UIView!
+    var QRcodeURL: URL!
     
     // MARK: - Public methods
     
     func startCameraSession() {
-        
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
         guard let captureDevice = deviceDiscoverySession.devices.first else {
             print("Failed to open the camera")
@@ -39,11 +37,8 @@ class QRScannerManager: NSObject {
             captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
 
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-            if let view = view {
-                videoPreviewLayer?.frame = view.layer.bounds
-                view.layer.addSublayer(videoPreviewLayer!)
-            }
-            captureSession.startRunning()
+            videoPreviewLayer?.frame = self.layer.bounds
+            self.layer.addSublayer(videoPreviewLayer!)
         } catch {
             print(error)
             return
@@ -51,13 +46,11 @@ class QRScannerManager: NSObject {
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        captureSession.stopRunning()
-        videoPreviewLayer.removeFromSuperlayer()
-        
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
             guard let url = URL(string: stringValue) else { return }
+            QRcodeURL = url
             UIApplication.shared.open(url)
         }
         UIDevice.vibrate()
@@ -82,7 +75,6 @@ class QRScannerManager: NSObject {
     }
 }
 
-extension QRScannerManager: AVCaptureMetadataOutputObjectsDelegate {
+extension QRCodeScanner: AVCaptureMetadataOutputObjectsDelegate {
     
 }
-
