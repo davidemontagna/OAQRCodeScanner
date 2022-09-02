@@ -21,8 +21,8 @@ class HomeViewModel: NSObject {
     
     // MARK: - Properties
     
-  //  var QRCodeUrl: URL!
     var stringURL: String!
+    var url: URL!
     var uiitems: [HomeUIItem] {
         var items: [HomeUIItem] = []
         items.append(.button)
@@ -45,6 +45,7 @@ class HomeViewModel: NSObject {
     }
     
     func showScanResult(url: URL) {
+        self.url = url
         stringURL = url.absoluteString
         delegate?.onSuccess(by: .showResult)
     }

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E80318228BDF28100EDB275 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E80318128BDF28100EDB275 /* QRScannerViewController.swift */; };
-		8E80318428BDF2AA00EDB275 /* QRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E80318328BDF2AA00EDB275 /* QRCodeScanner.swift */; };
+		8E80318428BDF2AA00EDB275 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E80318328BDF2AA00EDB275 /* QRCodeScannerView.swift */; };
 		8EA4575728B8B24B009982B1 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA4575628B8B24B009982B1 /* UIDevice+Extensions.swift */; };
 		8EA4575A28B8C7A1009982B1 /* ScanResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA4575828B8C7A1009982B1 /* ScanResultCell.swift */; };
 		8EA4575B28B8C7A1009982B1 /* ScanResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA4575928B8C7A1009982B1 /* ScanResultCell.xib */; };
@@ -28,6 +28,8 @@
 		8EA57A5828B67751001AAF58 /* HomeUIItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA57A5728B67751001AAF58 /* HomeUIItems.swift */; };
 		8EA57A5B28B67CB3001AAF58 /* ButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA57A5928B67CB3001AAF58 /* ButtonsCell.swift */; };
 		8EA57A5C28B67CB3001AAF58 /* ButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EA57A5A28B67CB3001AAF58 /* ButtonsCell.xib */; };
+		8EAA6A5128C1EB1A006774D0 /* QRScannerUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA6A5028C1EB1A006774D0 /* QRScannerUseCases.swift */; };
+		8EAA6A5328C1EB42006774D0 /* QRScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA6A5228C1EB42006774D0 /* QRScannerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +51,7 @@
 
 /* Begin PBXFileReference section */
 		8E80318128BDF28100EDB275 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
-		8E80318328BDF2AA00EDB275 /* QRCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
+		8E80318328BDF2AA00EDB275 /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
 		8EA4575628B8B24B009982B1 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
 		8EA4575828B8C7A1009982B1 /* ScanResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResultCell.swift; sourceTree = "<group>"; };
 		8EA4575928B8C7A1009982B1 /* ScanResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanResultCell.xib; sourceTree = "<group>"; };
@@ -73,6 +75,8 @@
 		8EA57A5728B67751001AAF58 /* HomeUIItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUIItems.swift; sourceTree = "<group>"; };
 		8EA57A5928B67CB3001AAF58 /* ButtonsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsCell.swift; sourceTree = "<group>"; };
 		8EA57A5A28B67CB3001AAF58 /* ButtonsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonsCell.xib; sourceTree = "<group>"; };
+		8EAA6A5028C1EB1A006774D0 /* QRScannerUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerUseCases.swift; sourceTree = "<group>"; };
+		8EAA6A5228C1EB42006774D0 /* QRScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				8E80318028BDF23E00EDB275 /* ViewController */,
+				8EAA6A4F28C1EAE9006774D0 /* ViewModel */,
+				8EAA6A4E28C1EAB6006774D0 /* UseCases */,
 			);
 			path = QRScanner;
 			sourceTree = "<group>";
@@ -114,14 +120,6 @@
 				8E80318128BDF28100EDB275 /* QRScannerViewController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		8EA468DF28BCC7870000C472 /* CustomView */ = {
-			isa = PBXGroup;
-			children = (
-				8E80318328BDF2AA00EDB275 /* QRCodeScanner.swift */,
-			);
-			path = CustomView;
 			sourceTree = "<group>";
 		};
 		8EA57A0228B66BB7001AAF58 = {
@@ -147,7 +145,6 @@
 		8EA57A0D28B66BB7001AAF58 /* OAQRCodeScanner */ = {
 			isa = PBXGroup;
 			children = (
-				8EA468DF28BCC7870000C472 /* CustomView */,
 				8EA57A5428B675BA001AAF58 /* Extensions */,
 				8EA57A3E28B66C92001AAF58 /* UI */,
 				8EA57A0E28B66BB7001AAF58 /* AppDelegate.swift */,
@@ -180,6 +177,7 @@
 		8EA57A3E28B66C92001AAF58 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				8EB234CF28C0F3FA006ED29A /* Components */,
 				8EA57A3F28B66CA3001AAF58 /* Scenes */,
 			);
 			path = UI;
@@ -273,6 +271,30 @@
 				8EA4575628B8B24B009982B1 /* UIDevice+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8EAA6A4E28C1EAB6006774D0 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				8EAA6A5028C1EB1A006774D0 /* QRScannerUseCases.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		8EAA6A4F28C1EAE9006774D0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8EAA6A5228C1EB42006774D0 /* QRScannerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8EB234CF28C0F3FA006ED29A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				8E80318328BDF2AA00EDB275 /* QRCodeScannerView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,12 +433,14 @@
 				8EA57A0F28B66BB7001AAF58 /* AppDelegate.swift in Sources */,
 				8E80318228BDF28100EDB275 /* QRScannerViewController.swift in Sources */,
 				8EA4575D28B8CE0F009982B1 /* HomeUseCases.swift in Sources */,
-				8E80318428BDF2AA00EDB275 /* QRCodeScanner.swift in Sources */,
+				8E80318428BDF2AA00EDB275 /* QRCodeScannerView.swift in Sources */,
 				8EA57A5B28B67CB3001AAF58 /* ButtonsCell.swift in Sources */,
+				8EAA6A5328C1EB42006774D0 /* QRScannerViewModel.swift in Sources */,
 				8EA57A4F28B66E08001AAF58 /* HomeAdapter.swift in Sources */,
 				8EA4575A28B8C7A1009982B1 /* ScanResultCell.swift in Sources */,
 				8EA57A5628B675E2001AAF58 /* UITableView+Extensions.swift in Sources */,
 				8EA57A5828B67751001AAF58 /* HomeUIItems.swift in Sources */,
+				8EAA6A5128C1EB1A006774D0 /* QRScannerUseCases.swift in Sources */,
 				8EA4575728B8B24B009982B1 /* UIDevice+Extensions.swift in Sources */,
 				8EA57A1128B66BB7001AAF58 /* SceneDelegate.swift in Sources */,
 				8EA57A4D28B66DE6001AAF58 /* HomeViewModel.swift in Sources */,

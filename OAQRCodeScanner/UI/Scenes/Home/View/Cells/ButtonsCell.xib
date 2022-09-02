@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Pv-nV-AOf">
-                        <rect key="frame" x="92" y="21" width="130" height="49"/>
+                        <rect key="frame" x="92" y="11" width="130" height="59"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n40-bu-0u3">
-                                <rect key="frame" x="10" y="9" width="110" height="31"/>
+                                <rect key="frame" x="10" y="9" width="110" height="41"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Open Camera"/>
@@ -52,7 +52,7 @@
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="4Pv-nV-AOf" secondAttribute="bottom" constant="11" id="8Qg-1q-juP"/>
                     <constraint firstItem="4Pv-nV-AOf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="92" id="JnY-pp-cwP"/>
-                    <constraint firstItem="4Pv-nV-AOf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="21" id="Leg-V9-HJS"/>
+                    <constraint firstItem="4Pv-nV-AOf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="Leg-V9-HJS"/>
                     <constraint firstAttribute="trailing" secondItem="4Pv-nV-AOf" secondAttribute="trailing" constant="98" id="Lg6-1e-ahk"/>
                 </constraints>
             </tableViewCellContentView>

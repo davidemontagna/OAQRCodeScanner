@@ -6,26 +6,17 @@
 //
 
 import UIKit
-import AVFoundation
-
-protocol QRScannerViewControllerDelegate {
-    func printQRCodeUrl(url: URL)
-}
 
 class QRScannerViewController: UIViewController {
 
     // MARK: - Outlets
     
-    @IBOutlet weak var QRScannerView: QRCodeScanner!
+    @IBOutlet weak var qrScannerView: QRCodeScannerView!
+    @IBOutlet weak var openBrowserButton: UIButton!
     
-    // MARK: - Delegate
+    // MARK: - ViewModel
     
-    var delegate: QRScannerViewControllerDelegate?
-    
-    // MARK: - Properties
-    
-    var captureSession = AVCaptureSession()
-    var url: URL!
+    lazy var viewModel = QRScannerViewModel(delegate: self)
     
     // MARK: - Lifecycle
     
@@ -34,30 +25,52 @@ class QRScannerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        QRScannerView.startCameraSession()
-        self.captureSession = QRScannerView.captureSession
-        startCaptureSession()
+        qrScannerView.delegate = self
+        qrScannerView.startCaptureSession()
+        qrScannerView.isRunning = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        stopCaptureSession()
-        url = QRScannerView.QRcodeURL
-        if let url = url {
-            delegate?.printQRCodeUrl(url: url)
-        }
+        qrScannerView.stopCaptureSession()
+        qrScannerView.isRunning = false
     }
     
-    // MARK: - Private methods
-    
-    private func startCaptureSession() {
-        if !captureSession.isRunning {
-            captureSession.startRunning()
+    @IBAction func openBrowserTapped(_ sender: Any) {
+        viewModel.showBrowser()
+    }
+}
+
+// MARK: - Extensions
+
+extension QRScannerViewController: QRScannerViewDelegate {
+    func codeFound(code: String) {
+        guard let url = URL(string: code) else {
+            openBrowserButton.isHidden = true
+            return
         }
+        viewModel.setUrl(url: url)
+        viewModel.vibrate()
+        openBrowserButton.isHidden = false
     }
     
-    private func stopCaptureSession() {
-        if captureSession.isRunning {
-            captureSession.stopRunning()
+    func cameraSessionDidStart() {
+        print("Camera session did start")
+    }
+    
+    func cameraSessionDidStop() {
+        print("Camera session did stop")
+    }
+}
+
+extension QRScannerViewController: QRScannerViewModelDelegate {
+    func onSuccess(by useCase: QRScannerUseCases) {
+        switch useCase {
+        case .showBrowser:
+            if let url = viewModel.url {
+                UIApplication.shared.open(url)
+            }
+        case .vibrate:
+            UIDevice.vibrate()
         }
     }
 }

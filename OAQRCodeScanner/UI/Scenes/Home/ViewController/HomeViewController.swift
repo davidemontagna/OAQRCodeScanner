@@ -22,6 +22,10 @@ class HomeViewController: UIViewController {
     
     lazy var viewModel = HomeViewModel(delegate: self)
     
+    // MARK: - Properties
+    
+    var url: URL!
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -36,9 +40,7 @@ class HomeViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? QRScannerViewController {
-            destination.delegate = self
-        }
+        
     }
 }
 
@@ -59,12 +61,6 @@ extension HomeViewController: HomeViewModelDelegate {
         case .startCamera:
             self.performSegue(withIdentifier: "show_scanner", sender: nil)
         }
-    }
-}
-
-extension HomeViewController: QRScannerViewControllerDelegate {
-    func printQRCodeUrl(url: URL) {
-        viewModel.showScanResult(url: url)
     }
 }
 

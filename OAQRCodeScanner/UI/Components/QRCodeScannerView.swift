@@ -9,13 +9,35 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class QRCodeScanner: UIView {
+protocol QRScannerViewDelegate: AnyObject {
+    func codeFound(code: String)
+    func cameraSessionDidStart()
+    func cameraSessionDidStop()
+}
+
+class QRCodeScannerView: UIView {
+    
+    weak var delegate: QRScannerViewDelegate?
     
     // MARK: - Properties
     
     var captureSession = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
-    var QRcodeURL: URL!
+    var qrCodeURL: URL!
+    var isRunning = false
+    
+    // MARK: - View Lifecycle
+    
+    // Init methods..
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        startCameraSession()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        startCameraSession()
+    }
     
     // MARK: - Public methods
     
@@ -34,7 +56,7 @@ class QRCodeScanner: UIView {
             checkCaptureSessionOutput()
             captureSession.addOutput(captureMetadataOutput)
             captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
+            captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr, AVMetadataObject.ObjectType.code128]
 
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
             videoPreviewLayer?.frame = self.layer.bounds
@@ -45,15 +67,26 @@ class QRCodeScanner: UIView {
        }
     }
     
+    func startCaptureSession() {
+        if !isRunning {
+            captureSession.startRunning()
+            delegate?.cameraSessionDidStart()
+        }
+    }
+    
+    func stopCaptureSession() {
+        if isRunning {
+            captureSession.stopRunning()
+            delegate?.cameraSessionDidStop()
+        }
+    }
+    
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
-            guard let url = URL(string: stringValue) else { return }
-            QRcodeURL = url
-            UIApplication.shared.open(url)
+            delegate?.codeFound(code: stringValue)
         }
-        UIDevice.vibrate()
     }
     
     // MARK: - Private methods
@@ -75,6 +108,6 @@ class QRCodeScanner: UIView {
     }
 }
 
-extension QRCodeScanner: AVCaptureMetadataOutputObjectsDelegate {
+extension QRCodeScannerView: AVCaptureMetadataOutputObjectsDelegate {
     
 }

@@ -71,26 +71,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ekk-aR-atW" customClass="QRCodeScanner" customModule="OAQRCodeScanner" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ekk-aR-atW" customClass="QRCodeScannerView" customModule="OAQRCodeScanner" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="91" width="414" height="771"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAq-no-rDK">
+                                <rect key="frame" x="122" y="780" width="170" height="31"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Open browser"/>
+                                <connections>
+                                    <action selector="openBrowserTapped:" destination="xnh-sD-Hey" eventType="touchUpInside" id="MBf-JG-CAd"/>
+                                    <action selector="openBrowserTapped:" destination="Azp-KC-NSG" eventType="touchUpInside" id="sRa-AZ-Vgy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ehn-C3-JwY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ehn-C3-JwY" firstAttribute="trailing" secondItem="Ekk-aR-atW" secondAttribute="trailing" id="1Pj-lP-fy4"/>
+                            <constraint firstItem="GAq-no-rDK" firstAttribute="leading" secondItem="ehn-C3-JwY" secondAttribute="leading" constant="122" id="NaR-Tv-hug"/>
+                            <constraint firstItem="ehn-C3-JwY" firstAttribute="trailing" secondItem="GAq-no-rDK" secondAttribute="trailing" constant="122" id="Udi-Dk-Rce"/>
                             <constraint firstItem="Ekk-aR-atW" firstAttribute="leading" secondItem="ehn-C3-JwY" secondAttribute="leading" id="X7W-Fa-cCE"/>
                             <constraint firstItem="ehn-C3-JwY" firstAttribute="bottom" secondItem="Ekk-aR-atW" secondAttribute="bottom" id="Xgb-lv-LdD"/>
                             <constraint firstItem="Ekk-aR-atW" firstAttribute="top" secondItem="ehn-C3-JwY" secondAttribute="top" constant="3" id="YdW-Po-WIN"/>
+                            <constraint firstItem="ehn-C3-JwY" firstAttribute="bottom" secondItem="GAq-no-rDK" secondAttribute="bottom" constant="51" id="v95-wE-7Fj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="TJ0-uZ-TgZ"/>
                     <connections>
-                        <outlet property="QRScannerView" destination="Ekk-aR-atW" id="yS5-ID-GVi"/>
+                        <outlet property="openBrowserButton" destination="GAq-no-rDK" id="bD9-bV-Pge"/>
+                        <outlet property="qrScannerView" destination="Ekk-aR-atW" id="xzc-OG-Dla"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iz2-6x-tMt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Azp-KC-NSG" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1069.5652173913045" y="109.82142857142857"/>
         </scene>

@@ -58,3 +58,5 @@ extension HomeAdapter: ButtonsCellDelegate {
         delegate?.didOpenCameraTapped()
     }
 }
+
+
